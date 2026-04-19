@@ -27,7 +27,7 @@ def render_map(df):
         lataxis_range=[34, 72],
     )
     fig.update_layout(
-        height=650,
+        height=720,
         margin=dict(l=0, r=0, t=0, b=0),
         coloraxis_colorbar=dict(title="Elec %"),
     )

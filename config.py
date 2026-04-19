@@ -46,6 +46,16 @@ section[data-testid="stSidebar"] h3 {
     margin-bottom: 0.25rem !important;
 }
 
+/* Sidebar: remove extra spacing between blocks */
+section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] > * {
+    margin-block-start: 0.15rem !important;
+    margin-block-end: 0.15rem !important;
+}
+section[data-testid="stSidebar"] .stButton {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 .stButton > button {
     background: none !important;
     border: none !important;
@@ -85,6 +95,11 @@ section[data-testid="stSidebar"] h3 {
 div[data-testid="stAlert"] {
     padding: 0.6rem 0.8rem !important;
     margin: 0.25rem 0 0.25rem 0 !important;
+}
+
+/* Tighten spacing under Plotly charts */
+div[data-testid="stPlotlyChart"] {
+    margin-bottom: 0 !important;
 }
 
 .stMarkdown h3 {
