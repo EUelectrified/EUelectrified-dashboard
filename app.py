@@ -1,13 +1,14 @@
-import streamlit as st
 import pandas as pd
-from config import GLOBAL_CSS
+import streamlit as st
+
 from components.sidebar import render_sidebar
-from sections import overview, buildings, transport, industry
+from config import GLOBAL_CSS
+from sections import buildings, industry, overview, transport
 
 st.set_page_config(
     page_title="EU Electrification Dashboard",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
 )
 
 st.markdown(GLOBAL_CSS, unsafe_allow_html=True)
@@ -31,3 +32,4 @@ elif section.startswith("3."):
     transport.render(df)
 elif section.startswith("4."):
     industry.render(df)
+
