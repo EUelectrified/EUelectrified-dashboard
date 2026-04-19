@@ -31,13 +31,16 @@ Shareable online, low cost.
 - Eurostat API integration planned (eurostat Python package or direct REST API)
 
 ## CURRENT STATE (update this section at end of every session)
-- GitHub repo exists and is connected to Streamlit Community Cloud
-- Streamlit deployment is live and working
-- Cursor installed and set up
-- main.py exists with basic structure
-- .cursorrules file created
-- Placeholder CSVs: not yet created
-- Country pages: not yet built
+- GitHub repo: `EUelectrified/EUelectrified-dashboard`
+- Streamlit deployment is live and loading again
+- App entrypoint: `main.py` (Streamlit runs this by default in the current deployment)
+- Code structure: `components/` (sidebar, map), `sections/` (overview/buildings/transport/industry), `config.py` (CSS + constants)
+- UI layout iteration in progress:
+  - Sidebar narrowed; sidebar spacing partially tightened
+  - Overview columns rebalanced to give the map more horizontal space
+  - Map height increased
+- Placeholder CSVs: `data/eu27_dummy.csv` exists (synthetic)
+- Country deep dives: list exists; full country pages not yet built
 - Eurostat API: not yet integrated
 
 ## VISUAL DESIGN
@@ -54,7 +57,11 @@ Shareable online, low cost.
 - Context loss between sessions is main friction — this file solves that
 
 ## OPEN PRIORITIES (in order)
-1. Finalize overview page layout and design
+1. Finalize overview page layout and design (current focus)
+   - Tighten left sidebar subsection spacing further
+   - Reduce gap between map and toggle button/info box
+   - Improve map aspect ratio (wider/sideways) and align legend height/placement
+   - Reduce header sizes in right-side columns (“Key Numbers”, “Country Deep Dives”)
 2. Build country page template (reusable across all 27)
 3. Design placeholder CSV structure carefully
 4. Eurostat API integration for live data
