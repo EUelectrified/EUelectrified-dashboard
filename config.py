@@ -39,6 +39,13 @@ EU27_COUNTRIES = [
 
 GLOBAL_CSS = """
 <style>
+/* Sidebar: tighter vertical rhythm */
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+}
+
 .stButton > button {
     background: none !important;
     border: none !important;
@@ -66,13 +73,20 @@ GLOBAL_CSS = """
 .chapter-box {
     background-color: #1f3a5f;
     color: white;
-    padding: 4px 8px;
+    padding: 3px 8px;
     border-radius: 4px;
-    margin-top: 8px;
-    margin-bottom: 2px;
+    margin-top: 4px;
+    margin-bottom: 1px;
     font-weight: bold;
     font-size: 0.9rem;
 }
+
+/* Reduce default spacing around info boxes */
+div[data-testid="stAlert"] {
+    padding: 0.6rem 0.8rem !important;
+    margin: 0.25rem 0 0.25rem 0 !important;
+}
+
 .stMarkdown h3 {
     border: none !important;
     box-shadow: none !important;

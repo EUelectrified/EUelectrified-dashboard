@@ -1,0 +1,77 @@
+# PROJECT CONTEXT — EU Electrification Dashboard
+# Last updated: June 2025
+# Read this file at the start of every session before doing anything else.
+
+## PROJECT GOAL
+Build an EU27 country-level economic/financial dashboard.
+Visualize key indicators per country, comparable across EU.
+Shareable online, low cost.
+
+## STACK
+- Python 3.13
+- Streamlit (dashboard UI)
+- GitHub (version control + deployment trigger)
+- Streamlit Community Cloud (free hosting, auto-deploys from GitHub)
+- Data: CSV and Excel files (multi-country), Eurostat API (automated pulls where possible)
+- Editor: Cursor (AI-native, replaces VS Code)
+
+## PAGE STRUCTURE
+1. Overview page — EU27 map + key indicators
+2. 27 Country pages — identical layout, different data per country
+3. Navigation/layout (Streamlit-native):
+   - Left sidebar: country selector + page/section navigation
+   - Main area: scrollable content
+   - Optional right-side elements should be implemented via Streamlit columns/containers (no hard requirement for a separate right panel)
+
+## DATA APPROACH
+- Placeholder CSVs first (realistic but synthetic data)
+- Build and test entire dashboard with placeholders
+- Swap in real Eurostat data later without changing dashboard code
+- CRITICAL: CSV structure must be designed carefully from day one so real data is a drop-in replacement
+- Eurostat API integration planned (eurostat Python package or direct REST API)
+
+## CURRENT STATE (update this section at end of every session)
+- GitHub repo exists and is connected to Streamlit Community Cloud
+- Streamlit deployment is live and working
+- Cursor installed and set up
+- main.py exists with basic structure
+- .cursorrules file created
+- Placeholder CSVs: not yet created
+- Country pages: not yet built
+- Eurostat API: not yet integrated
+
+## VISUAL DESIGN
+- EU choropleth map on overview page
+- Key indicator numbers per country
+- Country deep dive pages
+- Filters and interactivity planned
+- Graphics visualization to be developed
+
+## KEY CONSTRAINTS
+- User writes no code independently — AI handles all coding
+- Data privacy priority → Claude (Anthropic) preferred
+- Keep costs low (Streamlit Community Cloud is free)
+- Context loss between sessions is main friction — this file solves that
+
+## OPEN PRIORITIES (in order)
+1. Finalize overview page layout and design
+2. Build country page template (reusable across all 27)
+3. Design placeholder CSV structure carefully
+4. Eurostat API integration for live data
+5. Filters and interactivity
+6. Graphics and visualization polish
+7. Data contract checkpoint (flag): explicitly define the placeholder↔Eurostat compatibility rules (keys, time grain, units, long vs wide)
+
+## TOOL SETUP
+- Cursor: installed
+- GitHub: connected, git installed locally
+- Streamlit Cloud: live deployment working
+- Mammouth API: available as extension if needed
+
+## STANDING RULES FOR AI
+1. Read this file completely before starting any session
+2. Never ask the user to write code themselves
+3. Always explain what you are doing and why in plain language
+4. At the end of any session where changes were made, update the CURRENT STATE section above to reflect what was built or changed
+5. Keep placeholder CSV structure compatible with real Eurostat data from day one
+6. Before ending any session, either (a) push to GitHub directly (preferred when safe), or (b) give the user copy/paste steps to push

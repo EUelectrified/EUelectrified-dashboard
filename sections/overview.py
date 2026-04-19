@@ -15,13 +15,13 @@ def render(df):
         else:
             render_map(df)
 
-        st.markdown("<div style='margin-top:-10px'>", unsafe_allow_html=True)
+        st.markdown("<div style='margin-top:-14px'>", unsafe_allow_html=True)
         toggle_label = "↩ show map" if st.session_state.show_table else "⇄ show table"
         if st.button(toggle_label):
             st.session_state.show_table = not st.session_state.show_table
         st.markdown("</div>", unsafe_allow_html=True)
 
-        st.markdown("<div style='margin-top:4px'>", unsafe_allow_html=True)
+        st.markdown("<div style='margin-top:0px'>", unsafe_allow_html=True)
         st.info(
             "The graph shows the share of electricity in the final energy consumption. "
             "In a climate-neutral scenario, the share would not rise to 100% for most "
