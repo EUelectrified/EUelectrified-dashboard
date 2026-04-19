@@ -72,6 +72,7 @@ Shareable online, low cost.
 1. Read this file completely before starting any session
 2. Never ask the user to write code themselves
 3. Always explain what you are doing and why in plain language
+3b. Assume the user is a non-coder: when asking the user to click "Run" or perform any step, add 1–2 sentences of context about what it will do and what to look for
 4. At the end of any session where changes were made, update the CURRENT STATE section above to reflect what was built or changed
 5. Keep placeholder CSV structure compatible with real Eurostat data from day one
 6. Before ending any session, either (a) push to GitHub directly (preferred when safe), or (b) give the user copy/paste steps to push
