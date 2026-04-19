@@ -4,7 +4,8 @@ from config import EU27_COUNTRIES
 
 
 def render(df):
-    col_main, col_keys, col_countries = st.columns([5, 2, 1.2])
+    # Give the map more horizontal room; keep side columns compact.
+    col_main, col_keys, col_countries = st.columns([7.2, 1.5, 0.8])
 
     with col_main:
         st.markdown("### 1. EU27 – Summary")

@@ -39,6 +39,14 @@ EU27_COUNTRIES = [
 
 GLOBAL_CSS = """
 <style>
+/* Make the left sidebar narrower (more room for the map) */
+section[data-testid="stSidebar"] {
+    width: 250px !important;
+}
+section[data-testid="stSidebar"] > div {
+    width: 250px !important;
+}
+
 /* Sidebar: tighter vertical rhythm */
 section[data-testid="stSidebar"] h2,
 section[data-testid="stSidebar"] h3 {
@@ -55,12 +63,19 @@ section[data-testid="stSidebar"] .stButton {
     margin: 0 !important;
     padding: 0 !important;
 }
+section[data-testid="stSidebar"] div[data-testid="stButton"] {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+section[data-testid="stSidebar"] div[data-testid="stElementContainer"] {
+    margin-bottom: 0.15rem !important;
+}
 
 .stButton > button {
     background: none !important;
     border: none !important;
     box-shadow: none !important;
-    padding: 2px 8px !important;
+    padding: 1px 8px !important;
     margin: 0px !important;
     font-size: 0.85rem !important;
     height: auto !important;
