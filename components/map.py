@@ -29,7 +29,12 @@ def render_map(df):
     fig.update_layout(
         height=720,
         margin=dict(l=0, r=0, t=0, b=0),
-        coloraxis_colorbar=dict(title="Elec %"),
+        coloraxis_colorbar=dict(
+            title="Elec %",
+            len=0.62,
+            y=0.5,
+            thickness=12,
+        ),
     )
     st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 

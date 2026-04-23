@@ -41,10 +41,10 @@ GLOBAL_CSS = """
 <style>
 /* Make the left sidebar narrower (more room for the map) */
 section[data-testid="stSidebar"] {
-    width: 250px !important;
+    width: 235px !important;
 }
 section[data-testid="stSidebar"] > div {
-    width: 250px !important;
+    width: 235px !important;
 }
 
 /* Sidebar: tighter vertical rhythm */
@@ -71,6 +71,14 @@ section[data-testid="stSidebar"] div[data-testid="stElementContainer"] {
     margin-bottom: 0.15rem !important;
 }
 
+/* Sidebar: aggressively remove default vertical padding inside wrappers */
+section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
 .stButton > button {
     background: none !important;
     border: none !important;
@@ -78,9 +86,18 @@ section[data-testid="stSidebar"] div[data-testid="stElementContainer"] {
     padding: 1px 8px !important;
     margin: 0px !important;
     font-size: 0.85rem !important;
+    line-height: 1.15 !important;
     height: auto !important;
     text-align: left !important;
     color: inherit !important;
+}
+
+/* Smaller headings for the compact right-side columns */
+.right-col-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
 }
 .stButton > button:hover {
     background-color: rgba(255,255,255,0.1) !important;

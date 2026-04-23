@@ -5,7 +5,7 @@ from config import EU27_COUNTRIES
 
 def render(df):
     # Give the map more horizontal room; keep side columns compact.
-    col_main, col_keys, col_countries = st.columns([7.2, 1.5, 0.8])
+    col_main, col_keys, col_countries = st.columns([7.3, 1.8, 1.2], gap="medium")
 
     with col_main:
         st.markdown("### 1. EU27 – Summary")
@@ -33,7 +33,7 @@ def render(df):
         st.markdown("</div>", unsafe_allow_html=True)
 
     with col_keys:
-        st.markdown("### Key Numbers")
+        st.markdown('<div class="right-col-title">Key Numbers</div>', unsafe_allow_html=True)
         eu_avg = df["value"].mean()
         st.metric("EU Average", f"{eu_avg:.1f} %")
 
@@ -56,7 +56,7 @@ def render(df):
             )
 
     with col_countries:
-        st.markdown("### Country Deep Dives")
+        st.markdown('<div class="right-col-title">Country Deep Dives</div>', unsafe_allow_html=True)
         country_links = "".join(
             f"<div style='line-height:1.5;font-size:0.85rem'>{c}</div>"
             for c in EU27_COUNTRIES
