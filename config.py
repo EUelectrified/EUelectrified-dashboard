@@ -41,10 +41,10 @@ GLOBAL_CSS = """
 <style>
 /* Make the left sidebar narrower (more room for the map) */
 section[data-testid="stSidebar"] {
-    width: 235px !important;
+    width: 285px !important;
 }
 section[data-testid="stSidebar"] > div {
-    width: 235px !important;
+    width: 285px !important;
 }
 
 /* Sidebar: tighter vertical rhythm */
@@ -83,7 +83,7 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div {
     background: none !important;
     border: none !important;
     box-shadow: none !important;
-    padding: 1px 8px !important;
+    padding: 1px 8px 1px 18px !important;
     margin: 0px !important;
     font-size: 0.78rem !important;
     line-height: 1.15 !important;
@@ -127,7 +127,7 @@ section[data-testid="stSidebar"] .stButton > button {
     margin-top: 4px;
     margin-bottom: 1px;
     font-weight: bold;
-    font-size: 0.78rem;
+    font-size: 0.88rem;
 }
 
 /* Reduce default spacing around info boxes */
