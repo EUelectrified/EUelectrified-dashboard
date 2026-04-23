@@ -4,25 +4,25 @@ from config import EU27_COUNTRIES
 
 
 def render(df):
-    # Give the map more horizontal room; keep side columns compact.
+    st.markdown("### 1. EU27 – Summary")
+    st.markdown(f"#### {st.session_state.active_section}")
+
+    # Layout: keep map top-aligned with the right columns.
     col_main, col_keys, col_countries = st.columns([7.3, 1.8, 1.2], gap="medium")
 
     with col_main:
-        st.markdown("### 1. EU27 – Summary")
-        st.markdown(f"#### {st.session_state.active_section}")
-
         if st.session_state.show_table:
             render_table(df)
         else:
             render_map(df)
 
-        st.markdown("<div style='margin-top:-14px'>", unsafe_allow_html=True)
+        st.markdown("<div style='margin-top:-22px'>", unsafe_allow_html=True)
         toggle_label = "↩ show map" if st.session_state.show_table else "⇄ show table"
         if st.button(toggle_label):
             st.session_state.show_table = not st.session_state.show_table
         st.markdown("</div>", unsafe_allow_html=True)
 
-        st.markdown("<div style='margin-top:0px'>", unsafe_allow_html=True)
+        st.markdown("<div style='margin-top:-2px'>", unsafe_allow_html=True)
         st.info(
             "The graph shows the share of electricity in the final energy consumption. "
             "In a climate-neutral scenario, the share would not rise to 100% for most "
@@ -31,6 +31,8 @@ def render(df):
             "in other instances negative emissions will be used."
         )
         st.markdown("</div>", unsafe_allow_html=True)
+
+        st.caption("Synthetic placeholder data (demo). Eurostat integration planned.")
 
     with col_keys:
         st.markdown('<div class="right-col-title">Key Numbers</div>', unsafe_allow_html=True)

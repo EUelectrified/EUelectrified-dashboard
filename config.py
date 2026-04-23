@@ -85,7 +85,7 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div {
     box-shadow: none !important;
     padding: 1px 8px !important;
     margin: 0px !important;
-    font-size: 0.85rem !important;
+    font-size: 0.78rem !important;
     line-height: 1.15 !important;
     height: auto !important;
     text-align: left !important;
@@ -98,6 +98,13 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div {
     font-weight: 700;
     margin: 0 0 0.25rem 0;
     line-height: 1.2;
+}
+
+/* Sidebar: keep subsection items on one line to avoid uneven vertical spacing */
+section[data-testid="stSidebar"] .stButton > button {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 }
 .stButton > button:hover {
     background-color: rgba(255,255,255,0.1) !important;
@@ -120,7 +127,7 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div {
     margin-top: 4px;
     margin-bottom: 1px;
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 0.78rem;
 }
 
 /* Reduce default spacing around info boxes */
