@@ -79,6 +79,12 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div {
     margin-bottom: 0 !important;
 }
 
+/* Sidebar: Streamlit uses flex gaps between elements; remove them */
+section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] {
+    row-gap: 0 !important;
+    gap: 0 !important;
+}
+
 .stButton > button {
     background: none !important;
     border: none !important;
@@ -105,6 +111,23 @@ section[data-testid="stSidebar"] .stButton > button {
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
+}
+
+/* Some Streamlit themes wrap text inside nested elements; force nowrap everywhere */
+section[data-testid="stSidebar"] .stButton > button * {
+    white-space: nowrap !important;
+}
+
+/* Sidebar nav (radio): tighten spacing + make it look like links */
+section[data-testid="stSidebar"] [role="radiogroup"] {
+    gap: 0 !important;
+}
+section[data-testid="stSidebar"] [role="radiogroup"] > label {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+section[data-testid="stSidebar"] [role="radiogroup"] [data-testid="stMarkdownContainer"] p {
+    margin: 0 !important;
 }
 .stButton > button:hover {
     background-color: rgba(255,255,255,0.1) !important;
