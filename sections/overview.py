@@ -4,10 +4,16 @@ from config import EU27_COUNTRIES
 
 
 def render(df):
-    st.markdown("### 1. EU27 – Summary")
-    st.markdown(f"#### {st.session_state.active_section}")
+    sec = st.session_state.active_section
+    st.markdown(
+        f'<div class="overview-page-titles">'
+        f"<h3>1. EU27 – Summary</h3>"
+        f'<h4>{sec}</h4>'
+        f"</div>",
+        unsafe_allow_html=True,
+    )
 
-    # Layout: keep map top-aligned with the right columns.
+    # Map column starts just below the title block; side columns line up with the map area.
     col_main, col_keys, col_countries = st.columns([7.3, 1.8, 1.2], gap="medium")
 
     with col_main:

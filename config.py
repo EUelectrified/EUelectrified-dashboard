@@ -1,3 +1,14 @@
+import os
+
+# Set env `EU_DASHBOARD_OVERVIEW_ONLY=1` (or "true") while tuning the overview: sidebar
+# shows only section 1, and other section modules are not loaded in main. Omit for the full app.
+def _read_overview_only() -> bool:
+    v = os.environ.get("EU_DASHBOARD_OVERVIEW_ONLY", "").strip().lower()
+    return v in ("1", "true", "yes")
+
+
+OVERVIEW_ONLY = _read_overview_only()
+
 SECTIONS = {
     "1. EU27 – Summary": [
         "1.1 Share of Elec of FEC",
@@ -106,31 +117,34 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] {
     line-height: 1.2;
 }
 
-/* Sidebar: subsection nav — smaller than chapter; keep on one line */
+/* Sidebar: subsection nav — one control type (button) for alignment; keep on one line */
+section[data-testid="stSidebar"] .stButton {
+    width: 100% !important;
+    min-width: 0 !important;
+}
 section[data-testid="stSidebar"] .stButton > button {
-    font-size: 0.66rem !important;
-    line-height: 1.2 !important;
+    font-size: 0.72rem !important;
+    line-height: 1.25 !important;
     font-weight: 400 !important;
+    min-height: 1.4rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
+}
+section[data-testid="stSidebar"] .stButton > button:disabled,
+section[data-testid="stSidebar"] .stButton > button[disabled] {
+    opacity: 1 !important;
+    -webkit-text-fill-color: currentColor !important;
+    font-weight: 700 !important;
+    color: inherit !important;
+    cursor: default !important;
 }
 
 /* Some Streamlit themes wrap text inside nested elements; force nowrap everywhere */
 section[data-testid="stSidebar"] .stButton > button * {
     white-space: nowrap !important;
-}
-
-/* Current subsection (not a control — bold text) */
-section[data-testid="stSidebar"] .nav-item-active {
-    font-size: 0.66rem !important;
-    line-height: 1.2 !important;
-    font-weight: 700 !important;
-    padding: 1px 8px 1px 18px !important;
-    margin: 0 !important;
-}
-section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] .nav-item-active {
-    display: block;
 }
 .stButton > button:hover {
     background-color: rgba(255,255,255,0.1) !important;
@@ -171,6 +185,31 @@ div[data-testid="stPlotlyChart"] {
 .stMarkdown h3 {
     border: none !important;
     box-shadow: none !important;
+}
+
+/* Overview: titles + map (single page block — pull map up under header) */
+.overview-page-titles h3,
+.overview-page-titles h4 {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+.overview-page-titles h3 {
+    color: #fafafa;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 0.15rem 0 !important;
+    line-height: 1.2;
+}
+.overview-page-titles h4 {
+    color: #e8e8e8;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 0 0 0.1rem 0 !important;
+    line-height: 1.2;
+}
+.overview-page-titles {
+    margin: 0 0 -0.6rem 0 !important;
 }
 </style>
 """

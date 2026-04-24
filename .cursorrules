@@ -39,7 +39,8 @@ Shareable online, low cost.
   - Sidebar narrowed; sidebar spacing partially tightened
   - Overview columns rebalanced to give the map more horizontal space
   - Map height increased
-- Sidebar nav: chapter headers styled in `.chapter-box`; subsections use text-style buttons (no radio), active line bold; buildings/transport/industry section `render(df)` fixed to match `main.py`
+- Sidebar nav: chapter headers styled in `.chapter-box`; subsections use `st.button` (active = `disabled` + bold); buildings/transport/industry section `render(df)` fixed; overview titles via `.overview-page-titles` HTML block (tight gap before map)
+- **Local dev (optional):** set env `EU_DASHBOARD_OVERVIEW_ONLY=1` to show only “1. EU27 – Summary” in the nav and not import other section modules. **Unset** (default) for the full app and for Streamlit Cloud — safe for deploy.
 - Placeholder CSVs: `data/eu27_dummy.csv` exists (synthetic)
 - Country deep dives: list exists; full country pages not yet built
 - Eurostat API: not yet integrated
@@ -74,6 +75,7 @@ Shareable online, low cost.
 - Cursor: installed
 - GitHub: connected, git installed locally
 - Streamlit Cloud: live deployment working
+- Local Streamlit, overview-only: `EU_DASHBOARD_OVERVIEW_ONLY=1` (PowerShell: `$env:EU_DASHBOARD_OVERVIEW_ONLY="1"; streamlit run main.py`) — see CURRENT STATE; omit for production deploy
 - Mammouth API: available as extension if needed
 
 ## STANDING RULES FOR AI
