@@ -1,5 +1,5 @@
 # PROJECT CONTEXT — EU Electrification Dashboard
-# Last updated: June 2025
+# Last updated: April 2026
 # Read this file at the start of every session before doing anything else.
 
 ## PROJECT GOAL
@@ -39,6 +39,7 @@ Shareable online, low cost.
   - Sidebar narrowed; sidebar spacing partially tightened
   - Overview columns rebalanced to give the map more horizontal space
   - Map height increased
+- Sidebar nav: chapter headers styled in `.chapter-box`; subsections use text-style buttons (no radio), active line bold; buildings/transport/industry section `render(df)` fixed to match `main.py`
 - Placeholder CSVs: `data/eu27_dummy.csv` exists (synthetic)
 - Country deep dives: list exists; full country pages not yet built
 - Eurostat API: not yet integrated
@@ -83,3 +84,5 @@ Shareable online, low cost.
 4. At the end of any session where changes were made, update the CURRENT STATE section above to reflect what was built or changed
 5. Keep placeholder CSV structure compatible with real Eurostat data from day one
 6. Before ending any session, either (a) push to GitHub directly (preferred when safe), or (b) give the user copy/paste steps to push
+7. **Token / context (user is on a metered Pro plan):** If a request would **likely** use **~400k+ tokens** in one turn (e.g. `@` entire large folders, full-repo reads, multi-hundred-line pastes, or many tool round-trips with big outputs), **say so explicitly** and suggest a leaner path (one file or folder path, trim logs, smaller screenshot/crop, split the task). Flag **~1M+** as very high — avoid unless intentional.
+8. **Cache + history:** Long chats drive large **cache read** and repeated context. After a **long agent run** (many tool calls / big reads), **prefer a new chat** for the next task when practical, with a 2–3 sentence recap pasted in if context is needed.

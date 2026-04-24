@@ -3,7 +3,7 @@
 import streamlit as st
 from config import COLORS
 
-def render():
+def render(df):
     st.title("🚗 Transport Electrification")
     st.markdown("---")
 
