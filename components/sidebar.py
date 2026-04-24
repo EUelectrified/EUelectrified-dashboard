@@ -16,11 +16,10 @@ def render_sidebar():
         nav = {first: SECTIONS[first]} if OVERVIEW_ONLY else SECTIONS
         for chapter, subsections in nav.items():
             st.markdown(
-                f'<div class="chapter-box">{chapter}</div>',
-                unsafe_allow_html=True
-            )
-            st.markdown(
-                '<div class="sidebar-chapter-pad" aria-hidden="true"></div>',
+                f'<div class="chapter-and-gap">'
+                f'<div class="chapter-box">{chapter}</div>'
+                f'<div class="sidebar-chapter-pad" aria-hidden="true">&nbsp;</div>'
+                f"</div>",
                 unsafe_allow_html=True,
             )
             for subsection in subsections:

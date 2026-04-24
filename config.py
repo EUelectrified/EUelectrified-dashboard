@@ -180,6 +180,16 @@ section[data-testid="stSidebar"] .stButton > button * {
 .block-container {
     padding-top: 1.5rem !important;
 }
+.chapter-and-gap {
+    display: block;
+    width: 100%;
+    vertical-align: top;
+}
+/* Gap lives here (not on empty streamlit block that may collapse) */
+section[data-testid="stSidebar"] .chapter-and-gap .chapter-box {
+    margin-top: 4px;
+    margin-bottom: 0 !important;
+}
 .chapter-box {
     background-color: #1f3a5f;
     color: white;
@@ -191,14 +201,19 @@ section[data-testid="stSidebar"] .stButton > button * {
     font-size: 1.05rem;
     line-height: 1.25;
 }
-/* Extra gap between chapter label and first subsection (1.1) — not merged into chapter bar */
+section[data-testid="stSidebar"] .chapter-and-gap .sidebar-chapter-pad,
 div.sidebar-chapter-pad {
-    min-height: 0.4rem;
-    height: 0.4rem;
+    display: block;
     width: 100%;
-    margin: 0;
+    min-height: 0.65rem;
+    height: 0.65rem;
+    line-height: 0.65rem;
+    font-size: 0.65rem;
+    margin: 0.15rem 0 0.2rem 0;
     padding: 0;
     flex-shrink: 0;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 /* Reduce default spacing around info boxes */
