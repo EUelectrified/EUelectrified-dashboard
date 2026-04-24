@@ -136,9 +136,33 @@ section[data-testid="stSidebar"] .stButton > button[disabled] {
     padding: 1px 8px 1px 14px !important;
     text-align: left !important;
     margin-left: 0 !important;
+    /* Streamlit buttons default to flex + centered label; all rows must start at the same x */
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
+}
+section[data-testid="stSidebar"] .stButton > button > p,
+section[data-testid="stSidebar"] .stButton > button > span {
+    text-align: left !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+}
+/* Streamlit may wrap the label in a direct child div; keep content flush left */
+section[data-testid="stSidebar"] .stButton > button > div {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    text-align: left !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
 }
 section[data-testid="stSidebar"] .stButton > button {
     font-weight: 400 !important;
@@ -163,9 +187,10 @@ section[data-testid="stSidebar"] .stButton > button[disabled] * {
     color: inherit !important;
 }
 
-/* Some Streamlit themes wrap text inside nested elements; force nowrap everywhere */
+/* Some Streamlit themes wrap the label; keep one left edge and single line */
 section[data-testid="stSidebar"] .stButton > button * {
     white-space: nowrap !important;
+    text-align: left !important;
 }
 .stButton > button:hover {
     background-color: rgba(255,255,255,0.1) !important;
