@@ -36,14 +36,27 @@ Shareable online, low cost.
 - App entrypoint: `main.py` (Streamlit runs this by default in the current deployment)
 - Code structure: `components/` (sidebar, map), `sections/` (overview/buildings/transport/industry), `config.py` (CSS + constants)
 - UI layout iteration in progress:
-  - Sidebar narrowed; sidebar spacing partially tightened
-  - Overview columns rebalanced to give the map more horizontal space
-  - Map height increased
-- Sidebar nav: chapter headers styled in `.chapter-box`; subsections use `st.button` (active = `disabled` + bold); buildings/transport/industry section `render(df)` fixed; overview titles via `.overview-page-titles` HTML block (tight gap before map)
+  - Overview columns rebalanced to give the map more horizontal space; map height increased
+- **Left sidebar:** **stable / feature-complete for now** — see **LEFT SIDEBAR — COMPLETED (handoff)** below (read that first in a fresh chat).
+- Overview main column: titles use `.overview-page-titles` HTML block; no negative margin on titles (regression guard)
+- Buildings/transport/industry: `render(df)` matches `main.py`
 - **Local dev (optional):** set env `EU_DASHBOARD_OVERVIEW_ONLY=1` to show only “1. EU27 – Summary” in the nav and not import other section modules. **Unset** (default) for the full app and for Streamlit Cloud — safe for deploy.
 - Placeholder CSVs: `data/eu27_dummy.csv` exists (synthetic)
 - Country deep dives: list exists; full country pages not yet built
 - Eurostat API: not yet integrated
+
+## LEFT SIDEBAR — COMPLETED (handoff for fresh chats)
+Use this block to avoid re-explaining the left nav in long threads. **Do not rework the sidebar** unless the user asks; **next layout work** should target the **overview main column** (map, toggles, info) or other pages, in **small steps** — **not** sidebar + main + something else in one go (that pattern reintroduced regressions).
+
+**Behavior (as shipped):**
+- **Chapters** (e.g. `1. EU27 – Summary`, `2. Buildings`) are HTML **`.chapter-box`** inside a **`.chapter-and-gap`** wrapper in `components/sidebar.py`.
+- **Gap chapter → first subsection (1.1):** same wrapper includes **`.sidebar-chapter-pad`** with a non-breaking space so the spacer cannot **collapse** (empty divs did). Do not remove the `&nbsp;`.
+- **Subsections** are **only** `st.button` (enabled) or **disabled** `st.button` when active — **no** `st.radio`, **no** mixing with `st.markdown` rows for the same list (that caused misalignment).
+- **Active row:** bold via CSS on **`button:disabled`** and descendants (Streamlit themes vary).
+- **Same left edge for all labels:** sidebar nav buttons use **flex** with **`justify-content: flex-start`**; inner **`<div>`** wrappers (if Streamlit adds them) also **flex-start**. `text-align: left` on button and label nodes.
+- **Files involved:** `components/sidebar.py` (structure, keys), `config.py` → **`GLOBAL_CSS`** for all `section[data-testid="stSidebar"] …` rules, `.chapter-box`, `.chapter-and-gap`, `.sidebar-chapter-pad`, and nav button rules. **Scoped** changes are safer than editing global `.stButton` without the sidebar prefix.
+
+**Process lesson (user):** validate **one surface at a time** (e.g. sidebar only), then move on — **not** combined big CSS + overview + other in a single prompt.
 
 ## VISUAL DESIGN
 - EU choropleth map on overview page
@@ -59,8 +72,7 @@ Shareable online, low cost.
 - Context loss between sessions is main friction — this file solves that
 
 ## OPEN PRIORITIES (in order)
-1. Finalize overview page layout and design (current focus)
-   - Tighten left sidebar subsection spacing further
+1. Finalize overview page layout and design (current focus) — **sidebar nav is done;** work on main map area + right columns next, in small steps
    - Reduce gap between map and toggle button/info box
    - Improve map aspect ratio (wider/sideways) and align legend height/placement
    - Reduce header sizes in right-side columns (“Key Numbers”, “Country Deep Dives”)
