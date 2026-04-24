@@ -14,7 +14,7 @@ def render(df):
     )
 
     # Map column starts just below the title block; side columns line up with the map area.
-    col_main, col_keys, col_countries = st.columns([7.3, 1.8, 1.2], gap="medium")
+    col_main, col_keys, col_countries = st.columns([7.3, 1.8, 1.2], gap="small")
 
     with col_main:
         if st.session_state.show_table:

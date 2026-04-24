@@ -19,6 +19,10 @@ def render_sidebar():
                 f'<div class="chapter-box">{chapter}</div>',
                 unsafe_allow_html=True
             )
+            st.markdown(
+                '<div class="sidebar-chapter-pad" aria-hidden="true"></div>',
+                unsafe_allow_html=True,
+            )
             for subsection in subsections:
                 is_active = subsection == current
                 key = f"nav_{_key_slug(chapter)}__{_key_slug(subsection)}"

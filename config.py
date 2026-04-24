@@ -121,18 +121,29 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] {
 section[data-testid="stSidebar"] .stButton {
     width: 100% !important;
     min-width: 0 !important;
+    margin-left: 0 !important;
 }
-section[data-testid="stSidebar"] .stButton > button {
+/* Same text box for enabled + disabled (avoids 1.1 / 1.2 walking sideways) */
+section[data-testid="stSidebar"] .stButton > button,
+section[data-testid="stSidebar"] .stButton > button:disabled,
+section[data-testid="stSidebar"] .stButton > button[disabled] {
     font-size: 0.72rem !important;
-    line-height: 1.25 !important;
-    font-weight: 400 !important;
-    min-height: 1.4rem !important;
+    line-height: 1.3 !important;
+    min-height: 1.5rem !important;
     width: 100% !important;
+    min-width: 0 !important;
     box-sizing: border-box !important;
+    padding: 1px 8px 1px 14px !important;
+    text-align: left !important;
+    margin-left: 0 !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
 }
+section[data-testid="stSidebar"] .stButton > button {
+    font-weight: 400 !important;
+}
+/* Active row: some themes need weight on the label node, not just the <button> */
 section[data-testid="stSidebar"] .stButton > button:disabled,
 section[data-testid="stSidebar"] .stButton > button[disabled] {
     opacity: 1 !important;
@@ -140,6 +151,16 @@ section[data-testid="stSidebar"] .stButton > button[disabled] {
     font-weight: 700 !important;
     color: inherit !important;
     cursor: default !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+section[data-testid="stSidebar"] .stButton > button:disabled *,
+section[data-testid="stSidebar"] .stButton > button[disabled] * {
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    -webkit-text-fill-color: currentColor !important;
+    color: inherit !important;
 }
 
 /* Some Streamlit themes wrap text inside nested elements; force nowrap everywhere */
@@ -162,13 +183,22 @@ section[data-testid="stSidebar"] .stButton > button * {
 .chapter-box {
     background-color: #1f3a5f;
     color: white;
-    padding: 4px 8px;
+    padding: 4px 8px 6px 8px;
     border-radius: 4px;
     margin-top: 4px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     font-weight: 700;
     font-size: 1.05rem;
     line-height: 1.25;
+}
+/* Extra gap between chapter label and first subsection (1.1) — not merged into chapter bar */
+div.sidebar-chapter-pad {
+    min-height: 0.4rem;
+    height: 0.4rem;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
 }
 
 /* Reduce default spacing around info boxes */
@@ -208,8 +238,11 @@ div[data-testid="stPlotlyChart"] {
     margin: 0 0 0.1rem 0 !important;
     line-height: 1.2;
 }
+/* No negative margin — that overlapped the map row, hid titles, and clipped the sub-header */
 .overview-page-titles {
-    margin: 0 0 -0.6rem 0 !important;
+    margin: 0.15rem 0 0.4rem 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
 }
 </style>
 """

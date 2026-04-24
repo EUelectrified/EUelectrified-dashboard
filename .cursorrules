@@ -78,6 +78,21 @@ Shareable online, low cost.
 - Local Streamlit, overview-only: `EU_DASHBOARD_OVERVIEW_ONLY=1` (PowerShell: `$env:EU_DASHBOARD_OVERVIEW_ONLY="1"; streamlit run main.py`) — see CURRENT STATE; omit for production deploy
 - Mammouth API: available as extension if needed
 
+## UI REGRESSION CHECKLIST
+**Run it after:** edits to `components/sidebar.py`, `sections/overview.py`, **or the `GLOBAL_CSS` string in `config.py`** (that block injects one global `<style>` into every Streamlit run — a single unscoped rule such as `.stButton` can change the main column, not just the sidebar).
+
+**Where the sidebar “lives” (both matter):**
+- **`components/sidebar.py`** — which Streamlit widgets run (order, keys, chapter vs subsection, `st.button` vs `st.markdown`).
+- **`config.py` → `GLOBAL_CSS`** — almost all look-and-feel for the sidebar: `section[data-testid="stSidebar"]…`, `.chapter-box`, nav button sizes, **and** any **global** rules like plain `.stButton > button` that are not under the sidebar selector (those can still hit the nav if shared, and can hit the main column too). “Sidebar-only” work usually touches **both** this file and `sidebar.py`.
+
+**User vs AI on this checklist:** The user is **not** a programmer — they **visually** confirm the deployed/local app. The **AI** does technical checks (e.g. search `config.py` / `GLOBAL_CSS` for negative `margin`, unscoped broad selectors) before/after editing; **never** tell the user to run `grep` or read raw CSS as a task.
+
+- **Main:** Overview h3 + h4 visible (not clipped under the app chrome); no huge empty gap above the map; no negative `margin` hacks on `.overview-page-titles` without re-checking.
+- **Sidebar:** Clear gap between chapter bar (e.g. `1.…`) and first subsection `1.1` (spacer + `.chapter-box` margin); active subsection is **bold**; all sub-rows share the same left padding (enabled vs disabled `st.button`).
+- Prefer **one mechanism** for nav rows (e.g. all `st.button`) and avoid mixing `st.markdown` lines for the same list — mixed widgets caused misalignment before.
+- **After any `GLOBAL_CSS` change to rules that are not clearly scoped** (e.g. not `section[data-testid="stSidebar"] …` or `.overview-…` / `.right-col-title`), spot-check at least: overview map/toggle, **and** one other section (e.g. Industry) in case a generic selector leaked.
+- **Narrow-slice option:** When iterating, prefer **one surface per PR/session** (e.g. sidebar + sidebar-scoped CSS only) so fewer selectors change at once; only broaden to full-page title/map tweaks when that slice looks stable.
+
 ## STANDING RULES FOR AI
 1. Read this file completely before starting any session
 2. Never ask the user to write code themselves
@@ -87,4 +102,6 @@ Shareable online, low cost.
 5. Keep placeholder CSV structure compatible with real Eurostat data from day one
 6. Before ending any session, either (a) push to GitHub directly (preferred when safe), or (b) give the user copy/paste steps to push
 7. **Token / context (user is on a metered Pro plan):** If a request would **likely** use **~400k+ tokens** in one turn (e.g. `@` entire large folders, full-repo reads, multi-hundred-line pastes, or many tool round-trips with big outputs), **say so explicitly** and suggest a leaner path (one file or folder path, trim logs, smaller screenshot/crop, split the task). Flag **~1M+** as very high — avoid unless intentional.
-8. **Cache + history:** Long chats drive large **cache read** and repeated context. After a **long agent run** (many tool calls / big reads), **prefer a new chat** for the next task when practical, with a 2–3 sentence recap pasted in if context is needed.
+8. **Cache + history:** Long chats increase **cache read** and cost. A **new chat** is *not* required after every small step — it helps when the thread is very long, the task is **unrelated** to the last one, or you need a cheaper context. For **one feature** (e.g. sidebar only), **stay in the same chat** and keep “memory” in this file, git, and the checklist; starting fresh without a recap can **reintroduce** old mistakes.
+9. **“Learning from bugs” = repo + process, not chat memory** — the user does not code; the AI must not imply they should “avoid” bad patterns, **run terminal/file searches**, or **inspect CSS** themselves. **The AI** runs searches, follows the UI checklist, scopes CSS, and uses git. The user can prompt: “Re-read .cursorrules UI checklist before editing layout.”
+10. When changing sidebar or overview layout/CSS, **re-read the UI REGRESSION CHECKLIST** in this file and, when practical, have the user confirm the bullets on the deployed or local app before stacking more layout tweaks.
