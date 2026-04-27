@@ -96,7 +96,8 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] {
     gap: 0 !important;
 }
 
-.stButton > button {
+/* Button reset is for the sidebar nav only (never global) */
+section[data-testid="stSidebar"] .stButton > button {
     background: none !important;
     border: none !important;
     box-shadow: none !important;
@@ -192,7 +193,7 @@ section[data-testid="stSidebar"] .stButton > button * {
     white-space: nowrap !important;
     text-align: left !important;
 }
-.stButton > button:hover {
+section[data-testid="stSidebar"] .stButton > button:hover {
     background-color: rgba(255,255,255,0.1) !important;
     border: none !important;
 }
@@ -203,7 +204,11 @@ section[data-testid="stSidebar"] .stButton > button * {
     padding: 0 !important;
 }
 .block-container {
-    padding-top: 1.5rem !important;
+    /* Avoid content being clipped under Streamlit's top chrome */
+    padding-top: 2.6rem !important;
+    /* Reduce the gap between sidebar and main content */
+    padding-left: 1.1rem !important;
+    padding-right: 1.1rem !important;
 }
 .chapter-and-gap {
     display: block;
@@ -252,6 +257,69 @@ div[data-testid="stPlotlyChart"] {
     margin-bottom: 0 !important;
 }
 
+.overview-map-stack div[data-testid="stPlotlyChart"] {
+    margin-bottom: 0 !important;
+}
+
+/* Overview: map → toggle → info should feel like one block */
+.overview-map-stack div[data-testid="stButton"] {
+    margin-top: -28px !important;
+}
+.overview-map-stack div[data-testid="stButton"] button {
+    /* Light mode: a real light “pill” */
+    background-color: rgba(0, 0, 0, 0.06) !important;
+    border: 1px solid rgba(0, 0, 0, 0.10) !important;
+    border-radius: 10px !important;
+    padding: 6px 10px !important;
+    box-shadow: none !important;
+}
+.overview-map-stack div[data-testid="stButton"] button:hover {
+    background-color: rgba(0, 0, 0, 0.09) !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    /* Dark mode: the previous “light black” read as invisible; use a light surface */
+    .overview-map-stack div[data-testid="stButton"] button {
+        background-color: rgba(255, 255, 255, 0.10) !important;
+        border-color: rgba(255, 255, 255, 0.16) !important;
+        color: rgba(255, 255, 255, 0.92) !important;
+    }
+    .overview-map-stack div[data-testid="stButton"] button:hover {
+        background-color: rgba(255, 255, 255, 0.14) !important;
+        border-color: rgba(255, 255, 255, 0.20) !important;
+    }
+}
+
+.overview-info-box {
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+    margin-top: 0.0rem !important;
+    padding: 0.7rem 0.9rem !important;
+    border-radius: 10px !important;
+    line-height: 1.45 !important;
+    font-size: 0.95rem !important;
+    /* Light mode: neutral grey surface */
+    background: rgba(0, 0, 0, 0.06) !important;
+    border: 1px solid rgba(0, 0, 0, 0.10) !important;
+    color: var(--text-color, rgba(0, 0, 0, 0.86)) !important;
+}
+
+.overview-map-stack [data-testid="stMarkdownContainer"] .overview-info-box {
+    display: block !important;
+    width: 100% !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .overview-info-box {
+        /* Dark mode: light grey (not the Streamlit “info” blue) */
+        background: rgba(255, 255, 255, 0.10) !important;
+        border: 1px solid rgba(255, 255, 255, 0.16) !important;
+        color: rgba(255, 255, 255, 0.92) !important;
+    }
+}
+
 .stMarkdown h3 {
     border: none !important;
     box-shadow: none !important;
@@ -265,24 +333,39 @@ div[data-testid="stPlotlyChart"] {
     padding: 0 !important;
 }
 .overview-page-titles h3 {
-    color: #fafafa;
-    font-size: 1.2rem;
+    /* Theme-safe: visible in both light and dark mode */
+    color: var(--text-color, rgba(0,0,0,0.95)) !important;
+    font-size: 1.35rem;
     font-weight: 600;
     margin: 0 0 0.15rem 0 !important;
     line-height: 1.2;
 }
 .overview-page-titles h4 {
-    color: #e8e8e8;
-    font-size: 0.95rem;
+    color: var(--text-color, rgba(0,0,0,0.85)) !important;
+    opacity: 0.85;
+    font-size: 1.05rem;
     font-weight: 500;
     margin: 0 0 0.1rem 0 !important;
     line-height: 1.2;
 }
 /* No negative margin — that overlapped the map row, hid titles, and clipped the sub-header */
 .overview-page-titles {
-    margin: 0.15rem 0 0.4rem 0 !important;
+    margin: 0.15rem 0 0.12rem 0 !important;
     padding: 0 !important;
     overflow: visible !important;
+    position: relative;
+    z-index: 5;
+}
+
+/* Dark mode: ensure overview titles stay readable */
+@media (prefers-color-scheme: dark) {
+    .overview-page-titles h3 {
+        color: rgba(255,255,255,0.95) !important;
+    }
+    .overview-page-titles h4 {
+        color: rgba(255,255,255,0.88) !important;
+        opacity: 1;
+    }
 }
 </style>
 """

@@ -37,8 +37,15 @@ Shareable online, low cost.
 - Code structure: `components/` (sidebar, map), `sections/` (overview/buildings/transport/industry), `config.py` (CSS + constants)
 - UI layout iteration in progress:
   - Overview columns rebalanced to give the map more horizontal space; map height increased
+- As of 2026-04-27: overview map area spacing/polish session completed locally:
+  - Map/table + toggle are wrapped in `.overview-map-stack` (tighter vertical rhythm under the chart)
+  - Toggle is styled as a light “pill” in **both** light + dark system themes; **no global `.stButton` resets** in main content (was overriding Streamlit’s normal button background)
+  - The long explanatory text uses a custom `.overview-info-box` (not `st.info`) to avoid un-overridable blue info theming, full-width in the main column, light-grey surface
 - **Left sidebar:** **stable / feature-complete for now** — see **LEFT SIDEBAR — COMPLETED (handoff)** below (read that first in a fresh chat).
 - Overview main column: titles use `.overview-page-titles` HTML block; no negative margin on titles (regression guard)
+- Overview main column: header visibility fixed (theme-safe), spacing tightened between header and map, and main content padding reduced to shrink the gap between sidebar and content
+- Overview map: title rendered inside Plotly (annotation), light-grey chart panel with subtle border, EU-only outlines (no surrounding geography), adjusted zoom/height, and legend moved closer with numeric ticks
+- **CSS footgun fixed:** sidebar “plain button” styling is under `section[data-testid="stSidebar"] …` only; **no** unscoped ` .stButton > button` resets (those accidentally stripped backgrounds from main-page buttons like the Overview toggle)
 - Buildings/transport/industry: `render(df)` matches `main.py`
 - **Local dev (optional):** set env `EU_DASHBOARD_OVERVIEW_ONLY=1` to show only “1. EU27 – Summary” in the nav and not import other section modules. **Unset** (default) for the full app and for Streamlit Cloud — safe for deploy.
 - Placeholder CSVs: `data/eu27_dummy.csv` exists (synthetic)
@@ -73,7 +80,7 @@ Use this block to avoid re-explaining the left nav in long threads. **Do not rew
 
 ## OPEN PRIORITIES (in order)
 1. Finalize overview page layout and design (current focus) — **sidebar nav is done;** work on main map area + right columns next, in small steps
-   - Reduce gap between map and toggle button/info box
+   - (Done 2026-04-27) Tighten vertical spacing: map → toggle “pill” → full-width light info panel
    - Improve map aspect ratio (wider/sideways) and align legend height/placement
    - Reduce header sizes in right-side columns (“Key Numbers”, “Country Deep Dives”)
 2. Build country page template (reusable across all 27)
@@ -95,7 +102,7 @@ Use this block to avoid re-explaining the left nav in long threads. **Do not rew
 
 **Where the sidebar “lives” (both matter):**
 - **`components/sidebar.py`** — which Streamlit widgets run (order, keys, chapter vs subsection, `st.button` vs `st.markdown`).
-- **`config.py` → `GLOBAL_CSS`** — almost all look-and-feel for the sidebar: `section[data-testid="stSidebar"]…`, `.chapter-box`, nav button sizes, **and** any **global** rules like plain `.stButton > button` that are not under the sidebar selector (those can still hit the nav if shared, and can hit the main column too). “Sidebar-only” work usually touches **both** this file and `sidebar.py`.
+- **`config.py` → `GLOBAL_CSS`** — almost all look-and-feel for the sidebar: `section[data-testid="stSidebar"]…`, `.chapter-box`, nav button sizes, **and** any **global** rules (not under the sidebar / overview / right-column class selectors) that can still hit the main column. “Sidebar-only” work usually touches **both** this file and `sidebar.py`.
 
 **User vs AI on this checklist:** The user is **not** a programmer — they **visually** confirm the deployed/local app. The **AI** does technical checks (e.g. search `config.py` / `GLOBAL_CSS` for negative `margin`, unscoped broad selectors) before/after editing; **never** tell the user to run `grep` or read raw CSS as a task.
 
@@ -113,6 +120,7 @@ Use this block to avoid re-explaining the left nav in long threads. **Do not rew
 4. At the end of any session where changes were made, update the CURRENT STATE section above to reflect what was built or changed
 5. Keep placeholder CSV structure compatible with real Eurostat data from day one
 6. Before ending any session, either (a) push to GitHub directly (preferred when safe), or (b) give the user copy/paste steps to push
+6b. **Iteration workflow (important):** do layout + CSS tuning locally on `http://localhost:8501` first (fast feedback). Push/deploy to Streamlit Cloud **at the end of a session** once the slice looks stable.
 7. **Token / context (user is on a metered Pro plan):** If a request would **likely** use **~400k+ tokens** in one turn (e.g. `@` entire large folders, full-repo reads, multi-hundred-line pastes, or many tool round-trips with big outputs), **say so explicitly** and suggest a leaner path (one file or folder path, trim logs, smaller screenshot/crop, split the task). Flag **~1M+** as very high — avoid unless intentional.
 8. **Cache + history:** Long chats increase **cache read** and cost. A **new chat** is *not* required after every small step — it helps when the thread is very long, the task is **unrelated** to the last one, or you need a cheaper context. For **one feature** (e.g. sidebar only), **stay in the same chat** and keep “memory” in this file, git, and the checklist; starting fresh without a recap can **reintroduce** old mistakes.
 9. **“Learning from bugs” = repo + process, not chat memory** — the user does not code; the AI must not imply they should “avoid” bad patterns, **run terminal/file searches**, or **inspect CSS** themselves. **The AI** runs searches, follows the UI checklist, scopes CSS, and uses git. The user can prompt: “Re-read .cursorrules UI checklist before editing layout.”
